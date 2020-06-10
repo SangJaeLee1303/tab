@@ -1,0 +1,107 @@
+package com.acaroom.tab;
+
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MatchCallFragment extends Fragment {
+
+    public MatchCallFragment() {
+        // Required empty public constructor
+    }
+    private ArrayList<String> mList;
+    private ListView mListView;;
+    private ArrayAdapter mAdapter;
+
+    Button btn_ok, btn_del;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_match_call, container, false);
+        mList = new ArrayList<String>();
+        mListView= (ListView) view.findViewById(R.id.list_item);
+        mAdapter =  new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_single_choice, mList);
+        mListView.setAdapter(mAdapter);
+        mList.add("서울대FC - 20km / 4% / 26세");
+        mList.add("연세대FC - 13km / 7% / 25세");
+        mList.add("고려대FC - 4km / 9% / 24세");
+        mList.add("서강대FC - 13km / 12% / 23세");
+        mList.add("성균관대FC - 7km / 10% / 22세");
+        mList.add("한양대FC - 7km / 14% / 20세");
+
+        btn_ok = (Button) view.findViewById(R.id.btn_ok);
+        btn_del = (Button) view.findViewById(R.id.btn_del);
+
+        btn_ok.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                int count, checked ;
+                count = mAdapter.getCount() ;
+
+                if (count > 0) {
+                    // 현재 선택된 아이템의 position 획득.
+                    checked = mListView.getCheckedItemPosition();
+                    if (checked > -1 && checked < count) {
+                        // 아이템 수정
+                        String str = mList.get(checked);
+                        mList.set(checked, str + "\n-수락된 메세지") ;
+
+                        // listview 갱신
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "수락/삭제할 메시지를 선택해주십시오.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        btn_del.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                int count, checked;
+                count = mAdapter.getCount();
+
+                if (count > 0) {
+                    // 현재 선택된 아이템의 position 획득.
+                    checked = mListView.getCheckedItemPosition();
+
+                    if (checked > -1 && checked < count) {
+                        // 아이템 삭제
+                        mList.remove(checked);
+                        Toast.makeText(getContext(), "요청을 삭제하셨습니다.", Toast.LENGTH_SHORT).show();
+
+                        // listview 선택 초기화.
+                        mListView.clearChoices();
+
+                        // listview 갱신.
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "수락/삭제할 메시지를 선택해주십시오.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        return view;
+    }
+
+}

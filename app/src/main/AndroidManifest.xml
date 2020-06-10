@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.acaroom.tab">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_pm"
+        android:roundIcon="@mipmap/ic_pm_round"
+        android:label="퍼펙트매치"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".app_ask_writeActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".appPermitActivity" />
+        <activity android:name=".appPersonalActivity" />
+        <activity android:name=".appConstActivity" />
+        <activity android:name=".appNoticeActivity" />
+        <activity android:name=".appAskActivity" />
+        <activity android:name=".withdrawalActivity" />
+        <activity android:name=".accountsetActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
